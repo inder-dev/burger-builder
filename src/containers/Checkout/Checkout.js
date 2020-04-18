@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
@@ -40,16 +40,20 @@ class Checkout extends Component {
 //        changed this.state.ingredients to this.props.ings after the implementation of redux
 //<Route path={this.props.match.url + '/contact-data'} ** copy of route before redux implementation
 //                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props}/>)}/>
-        return (
-            <div>
-                <CheckoutSummary
-                    checkoutCancelled={this.checkoutCancelledHandler}
-                    checkoutContinued={this.checkoutContinuedHandler}
-                    ingredients={this.props.ings}/>
-                <Route path={this.props.match.url + '/contact-data'}
-                    component={ContactData}/>
-           </div>
-        );
+        let summary = <Redirect to="/"/>
+        if ( this.props.ings ) {
+            summary = (
+                <div>
+                    <CheckoutSummary
+                        checkoutCancelled={this.checkoutCancelledHandler}
+                        checkoutContinued={this.checkoutContinuedHandler}
+                        ingredients={this.props.ings}/>
+                    <Route path={this.props.match.url + '/contact-data'}
+                        component={ContactData}/>
+                </div>
+            );
+        }
+        return summary;
     }
 }
 
