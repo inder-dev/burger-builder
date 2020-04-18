@@ -1,7 +1,35 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import * as actionTypes from '../actions/actionTypes';
 
+const initialState = {
+    orders: [],
+    loading: false
+}
 
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case actionTypes.PURCHASE_BURGER_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.PURCHASE_BURGER_SUCCESS:
+            const newOrder = {
+                ...action.orderData,
+                id: action.orderId
+            }
+            return {
+                ...state,
+                loading: false,
+                orders: state.orders.concat(newOrder);
+            };
+        case actionTypes.PURCHASE_BURGER_FAIL:
+            return {
+                ...state,
+                loading: false
+            };
+        default:
+            return state;
+    }
+};
+
+export default reducer;
