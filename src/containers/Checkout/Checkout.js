@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
+import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
 //    state = { **redux implementation
@@ -41,9 +42,11 @@ class Checkout extends Component {
 //<Route path={this.props.match.url + '/contact-data'} ** copy of route before redux implementation
 //                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props}/>)}/>
         let summary = <Redirect to="/"/>
+        const purchasedRedirect = this.props.purchased ? <Redirect to="/"/> : null;
         if ( this.props.ings ) {
             summary = (
                 <div>
+                    {purchasedRedirect}
                     <CheckoutSummary
                         checkoutCancelled={this.checkoutCancelledHandler}
                         checkoutContinued={this.checkoutContinuedHandler}
@@ -59,7 +62,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.burgerBuilder.ingredients
+        ings: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
     }
 }
 
