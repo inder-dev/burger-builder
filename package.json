@@ -2,7 +2,7 @@
   "name": "burger-builder",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://inderpreet-narula.github.io/",
+  "homepage": "https://inderpreet-narula.github.io/burger-builder/",
   "dependencies": {
     "@babel/core": "^7.10.5",
     "autoprefixer": "7.1.2",
